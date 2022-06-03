@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+     <h2>Ajouter Etudiant</h2>
+     {{ form_start(form) }}
+        {{ form_row(form.nomComplet) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        {{ form_row(form.matricule) }}
+        {{ form_row(form.adresse) }}
+        {{ form_row(form.sexe) }}
+        {{ form_row(form.agreeTerms) }}
+        <button type="submit" class="btn btn-success">
+            {%if editMode %}
+                Editer
+            {% else %}
+                Enregister
+            {% endif %}
+        </button>
+     {{ form_end(form) }}
+{% endblock %}

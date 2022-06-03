@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+     <h2>Ajouter Classe</h2>
+     {{ form_start(form) }}
+        {{ form_row(form.libelle) }}
+        {{ form_row(form.niveau) }}
+        {{ form_row(form.filiere) }}
+        {{ form_row(form.agreeTerms) }}
+        <button type="submit" class="btn btn-success">
+            {%if editMode %}
+                Editer
+            {% else %}
+                Enregister
+            {% endif %}
+        </button>
+     {{ form_end(form) }}
+{% endblock %}
