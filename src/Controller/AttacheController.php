@@ -32,6 +32,10 @@ class AttacheController extends AbstractController
        return new Response($twig->render('attache/insert.html.twig',[
            'form' => $form -> createView(),
            'editMode' => $ac->getId() !== null,
+            'text'=> 'Ajouter Attaché',
+            'textBtn' =>'Liste des Attachés',
+            'link'  => '/attache',
+            'size' => 6
        ]));
     }
     #[Route('/attache', name: 'app_attache')]
@@ -41,7 +45,10 @@ class AttacheController extends AbstractController
         return $this->render('attache/index.html.twig', [
             'controller_name' => 'AttacheController',
             'attaches' => $attaches,
-            'title' => 'Liste des Attachés'
+            'text'=> 'Liste des Attachés',
+            'textBtn' =>'Ajouter Attaché',
+            'link'  => '/attacheI',
+            'size' => 6
         ]);
     }
 }

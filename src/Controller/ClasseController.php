@@ -32,6 +32,10 @@ class ClasseController extends AbstractController
        return new Response($twig->render('classe/insert.html.twig',[
            'form' => $form -> createView(),
            'editMode' => $ac->getId() !== null,
+           'text'=> 'Ajouter Classe',
+           'textBtn' =>'Liste des CLasses',
+           'link'  => '/classe',
+           'size' => 6
        ]));
     }
     #[Route('/classe', name: 'app_classe')]
@@ -40,7 +44,10 @@ class ClasseController extends AbstractController
         return $this->render('classe/index.html.twig', [
             'controller_name' => 'ClasseController',
             'classes' => $classes,
-            'title' => 'Liste des Classes'
+            'text'=> 'Ajouter Classe',
+            'textBtn' =>'Liste des Classes',
+            'link'  => '/classeI',
+            'size' => 6
         ]);
     }
 }
