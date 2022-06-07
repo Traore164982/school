@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-     
-     <h2>Ajouter Professeur</h2>
      {{ form_start(form) }}
-     {{ form(form) }}
+        {{ form_row(form.nomComplet) }}
+        {{ form_row(form.grade) }}
+        
+        <button type="submit" class="btn btn-success">
+            {%if editMode %}
+                Editer
+            {% else %}
+                Enregister
+            {% endif %}
+        </button>
      {{ form_end(form) }}
-
 {% endblock %}

@@ -15,8 +15,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AttacheController extends AbstractController
 {
     #[Route('/attacheI', name: 'app_attacheI')]
-    public function show(Environment $twig, Request $request, EntityManagerInterface $entityManager): Response{
-       $ac = new Attache();
+    #[Route('/attache/{id}/edit', name: 'app_attacheE')]
+    public function show(Attache $ac = null, Environment $twig, Request $request, EntityManagerInterface $entityManager): Response{
+       if (!$ac){
+        $ac = new Attache();
+    }
        $form = $this->createForm(AttacheFormType::class,$ac);
        $form->handleRequest($request);
        $agreeTerms = $form->get('agreeTerms')->getData();

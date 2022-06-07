@@ -21,9 +21,6 @@ class RpFormType extends AbstractType
             ->add('email',EmailType::class)
             ->add('password',PasswordType::class)
             ->add('agreeTerms', CheckboxType::class,["mapped"=>false,"required"=>false])
-            ->add('save',SubmitType::class,[
-                "label" => "Enregistrer"
-                ])
         ;
     }
 

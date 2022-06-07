@@ -11,8 +11,6 @@
 </style>
 
 {% set i = 0 %}
-<div class="example-wrapper">
-<h2 class="mt-2 text-center">{{title}}</h2>
 <table class="container mt-5">
     <tr class="bg-info text-dark text-center">
         <th>N°</th>
@@ -26,7 +24,7 @@
         <td>{{value.nomComplet}}</td>
         <td>{{value.grade}}</td>
         <td>
-            <button class="btn btn-outline-warning">Modifier</button>
+            <a class="btn btn-outline-warning" href="/professeur/{{ value.id }}/edit">Modifier</a>
             <button class="btn btn-outline-danger">Supprimer</button>
             <button class="btn btn-outline-primary">Details</button>
         </td>

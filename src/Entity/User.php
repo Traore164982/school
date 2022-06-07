@@ -80,6 +80,8 @@ class User extends Personne implements UserInterface, PasswordAuthenticatedUserI
         return $this;
     }
 
+    public function getSalt(){}
+
     /**
      * @see UserInterface
      */

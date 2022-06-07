@@ -6,6 +6,7 @@ use App\Entity\Module;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class ModuleFormType extends AbstractType
 {
@@ -13,8 +14,10 @@ class ModuleFormType extends AbstractType
     {
         $builder
             ->add('libelle')
-            ->add('professeurs')
-            ->add('rp')
+/*             ->add('professeurs')
+            ->add('rp') */
+            ->add('agreeTerms', CheckboxType::class, ['mapped' => false,'required' => false])
+
         ;
     }
 
@@ -22,6 +25,9 @@ class ModuleFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Module::class,
+            'csrf_protection' => true,
+            'csrf-field_name' => 'token',
+            'csrf_token_id' => 'et_item'
         ]);
     }
 }

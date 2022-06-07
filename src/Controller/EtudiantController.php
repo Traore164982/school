@@ -32,12 +32,20 @@ class EtudiantController extends AbstractController
             return new Response($twig->render('etudiant/insert.html.twig',[
                 'form' => $form -> createView(),
                 'editMode' => $et->getId() !== null,
+                'text'=> 'Ajouter Etudiant',
+                'textBtn' =>'Ajouter Etudiant',
+                'link'  => '/etudiant',
+                'size' => 6
             ]));
         }
 
         return new Response($twig->render('etudiant/insert.html.twig',[
             'form' => $form -> createView(),
             'editMode' => $et->getId() !== null,
+            'text'=> 'Ajouter Etudiant',
+            'textBtn' =>'Liste des Etudiants',
+            'link'  => '/etudiant',
+            'size' => 6
         ]));
      }
 
@@ -48,7 +56,10 @@ class EtudiantController extends AbstractController
         return $this->render('etudiant/index.html.twig', [
             'controller_name' => 'EtudiantController',
         'etudiants'=>$etudiants,
-        'title' => 'La liste des Etudiants'
+        'text'=> 'Liste des Etudiants',
+        'textBtn' =>'Ajouter Etudiant',
+        'link'  => '/etudiantI',
+        'size' => 6
         ]);
     }
 }

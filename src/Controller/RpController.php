@@ -15,9 +15,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class RpController extends AbstractController
 {
     #[Route('/rpI', name: 'app_rpI')]
-    public function show(Environment $twig, Request $request, EntityManagerInterface $entityManager): Response{
-       $rp = new Rp();
-       $form = $this->createForm(RpFormType::class,$rp);
+    #[Route('/rp/{id}/edit', name: 'app_rpE')]
+    public function show(Rp $rp = null, Environment $twig, Request $request, EntityManagerInterface $entityManager): Response{
+        if (!$rp){
+             $rp = new Rp();
+        }
+        $form = $this->createForm(RpFormType::class,$rp);
        $form->handleRequest($request);
        $agreeTerms = $form->get('agreeTerms')->getData();
 
@@ -31,6 +34,12 @@ class RpController extends AbstractController
 
        return new Response($twig->render('rp/insert.html.twig',[
            'form' => $form -> createView(),
+           'editMode' => $rp->getId() !== null,
+           'text'=> 'Ajouter Responsable Pédagoqique',
+            'textBtn' =>'Liste des Responsables Pédagoqiques',
+            'link'  => '/rp',
+            'size' => 6
+           
        ]));
     }
     
@@ -40,7 +49,10 @@ class RpController extends AbstractController
         return $this->render('rp/index.html.twig', [
             'controller_name' => 'RpController',
             'rps'=>$rps,
-            'title' =>'Liste des Responasables Pédagoqiques'
+            'textBtn'=> 'Ajouter Responsable Pédagoqique',
+            'text' =>'Liste des Responsables Pédagoqiques',
+            'link'  => '/rpI',
+            'size' => 6
         ]);
     }
 }

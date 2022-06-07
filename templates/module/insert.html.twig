@@ -1,12 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
      {{ form_start(form) }}
-        {{ form_row(form.nomComplet) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.password) }}
-        {{ form_row(form.matricule) }}
-        {{ form_row(form.adresse) }}
-        {{ form_row(form.sexe) }}
+        {{ form_row(form.libelle) }}
         {{ form_row(form.agreeTerms) }}
         <button type="submit" class="btn btn-success">
             {%if editMode %}

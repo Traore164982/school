@@ -6,6 +6,7 @@ use Twig\Environment;
 use App\Entity\Classe;
 use App\Form\ClasseFormType;
 use App\Repository\ClasseRepository;
+use COM;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,23 +16,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ClasseController extends AbstractController
 {
     #[Route('/classeI', name: 'app_classeI')]
-    public function show(Environment $twig, Request $request, EntityManagerInterface $entityManager): Response{
-       $ac = new Classe();
-       $form = $this->createForm(ClasseFormType::class,$ac);
+    #[Route('/classe/{id}/edit', name: 'app_classeE')]
+    public function show(Classe $classe = null, Environment $twig, Request $request, EntityManagerInterface $entityManager): Response{
+        if (!$classe) {
+            $classe = new Classe();
+            
+        }
+        $form = $this->createForm(ClasseFormType::class,$classe);
        $form->handleRequest($request);
        $agreeTerms = $form->get('agreeTerms')->getData();
 
        if ($form->isSubmitted()  && $form->isValid() && $agreeTerms) {
 
-           $entityManager->persist($ac);
+           $entityManager->persist($classe);
            $entityManager->flush();
 
-           return new Response("Classe number ".$ac->getId(). "created");
+           return new Response("Classe number ".$classe->getId(). "created");
        }
 
        return new Response($twig->render('classe/insert.html.twig',[
            'form' => $form -> createView(),
-           'editMode' => $ac->getId() !== null,
+           'editMode' => $classe->getId() !== null,
            'text'=> 'Ajouter Classe',
            'textBtn' =>'Liste des CLasses',
            'link'  => '/classe',
