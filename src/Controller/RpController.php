@@ -11,25 +11,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RpController extends AbstractController
 {
     #[Route('/rpI', name: 'app_rpI')]
     #[Route('/rp/{id}/edit', name: 'app_rpE')]
-    public function show(Rp $rp = null, Environment $twig, Request $request, EntityManagerInterface $entityManager): Response{
+    public function show(Rp $rp = null, Environment $twig, Request $request, EntityManagerInterface $entityManager,UserPasswordHasherInterface $encoder): Response{
         if (!$rp){
              $rp = new Rp();
+             $rp->setRoles(['ROLE_RP']);
         }
         $form = $this->createForm(RpFormType::class,$rp);
-       $form->handleRequest($request);
-       $agreeTerms = $form->get('agreeTerms')->getData();
+        $form->handleRequest($request);
+        $agreeTerms = $form->get('agreeTerms')->getData();
 
        if ($form->isSubmitted()  && $form->isValid() && $agreeTerms) {
 
+            $test = $encoder->hashPassword($rp,"Passer");
+            $rp->setPassword($test);
            $entityManager->persist($rp);
            $entityManager->flush();
 
-           return new Response("RP number ".$rp->getId(). "created");
+           return $this->redirectToRoute('app_rp');
        }
 
        return new Response($twig->render('rp/insert.html.twig',[

@@ -9,18 +9,19 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"></head>
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    {% include "partial/navbar.html.twig" %}
-{# <nav class='container bg-primary p-3'>
-        <span class='mt-2 text-white display-{{ size }}'>
+    {% if app.user %}
+        {% include "partial/navbar.html.twig" %}
+        <nav class='container bg-primary p-3'>
+            <span class='mt-2 text-white display-{{ size }}'>
             {{ text }}
-        </span>
+            </span>
         <a class='mt-2 text-white float-end btn btn-sm btn-success' href='{{ link }}'>{{ textBtn }}</a>
-</nav> #}
+        </nav>
+    {% endif %}
 <body>
     <div class="container mt-5">
         {% block body %}

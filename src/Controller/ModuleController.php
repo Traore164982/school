@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Module;
 use Twig\Environment;
+use App\Entity\Module;
 use App\Form\ModuleFormType;
 use App\Repository\ModuleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ModuleController extends AbstractController
 {
@@ -25,11 +26,11 @@ class ModuleController extends AbstractController
        $agreeTerms = $form->get('agreeTerms')->getData();
         
        if ($form->isSubmitted()  && $form->isValid() && $agreeTerms) {
-
+           $m->setRp($this->getUser());
            $entityManager->persist($m);
            $entityManager->flush();
 
-           return new Response("Module number ".$m->getId(). "created");
+           return $this->redirectToRoute('app_module');
        }
 
        return new Response($twig->render('module/insert.html.twig',[

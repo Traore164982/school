@@ -21,10 +21,18 @@ class Annee
     #[ORM\OneToMany(mappedBy: 'annee', targetEntity: Inscription::class)]
     private $inscriptions;
 
+    #[ORM\Column(type: 'boolean')]
+    private $isEtat;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
     }
+
+    public function __toString(){
+        return $this->libelle;
+    }
+
 
     public function getId(): ?int
     {
@@ -72,4 +80,17 @@ class Annee
 
         return $this;
     }
+
+    public function isIsEtat(): ?bool
+    {
+        return $this->isEtat;
+    }
+
+    public function setIsEtat(bool $isEtat): self
+    {
+        $this->isEtat = $isEtat;
+
+        return $this;
+    }
+   
 }

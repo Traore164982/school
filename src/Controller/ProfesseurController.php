@@ -29,7 +29,7 @@ class ProfesseurController extends AbstractController
            $entityManager->persist($p);
            $entityManager->flush();
 
-           return new Response("Professeur number ".$p->getId(). "created");
+           return $this->redirectToRoute('app_professeur');
        }
 
        return new Response($twig->render('professeur/insert.html.twig',[

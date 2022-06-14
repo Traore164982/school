@@ -6,6 +6,7 @@ use Twig\Environment;
 use App\Entity\Demande;
 use App\Form\DemandeFormType;
 use App\Repository\DemandeRepository;
+use App\Repository\EtudiantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,20 +17,20 @@ class DemandeController extends AbstractController
 {
     #[Route('/demandeI', name: 'app_demandeI')]
     #[Route('/demande/{id}/edit', name: 'app_demandeE')]
-    public function show(Demande $demande, Environment $twig, Request $request, EntityManagerInterface $entityManager): Response{
+    public function show(Demande $demande = null, Environment $twig, Request $request, EntityManagerInterface $entityManager): Response{
         if (!$demande){
              $demande = new Demande();
         }
+        
         $form = $this->createForm(DemandeFormType::class,$demande);
        $form->handleRequest($request);
        $agreeTerms = $form->get('agreeTerms')->getData();
-
        if ($form->isSubmitted()  && $form->isValid() && $agreeTerms) {
-
+            $demande->setEtudiant($this->getUser());
            $entityManager->persist($demande);
            $entityManager->flush();
 
-           return new Response("RP number ".$demande->getId(). "created");
+           return $this->redirectToRoute('app_demande');
        }
 
        return new Response($twig->render('demande/insert.html.twig',[
@@ -50,7 +51,7 @@ class DemandeController extends AbstractController
             'controller_name' => 'DemandeController',
             'demandes'=>$demandes,
             'text'=> 'Liste des Demandes',
-            'textBtn' =>'Ajouter Demandes',
+            'textBtn' =>'Ajouter Demande',
             'link'  => '/demandeI',
             'size' => 6
         ]);

@@ -14,8 +14,6 @@ class ModuleFormType extends AbstractType
     {
         $builder
             ->add('libelle')
-/*             ->add('professeurs')
-            ->add('rp') */
             ->add('agreeTerms', CheckboxType::class, ['mapped' => false,'required' => false])
 
         ;

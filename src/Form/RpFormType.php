@@ -19,7 +19,6 @@ class RpFormType extends AbstractType
         $builder
             ->add('nomComplet',TextType::class)
             ->add('email',EmailType::class)
-            ->add('password',PasswordType::class)
             ->add('agreeTerms', CheckboxType::class,["mapped"=>false,"required"=>false])
         ;
     }

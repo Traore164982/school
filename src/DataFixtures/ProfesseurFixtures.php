@@ -17,7 +17,7 @@ class ProfesseurFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for ($i=0; $i < 5; $i++) {
+        for ($i=0; $i < 1; $i++) {
             $prof = new Professeur();
             $prof->setNomComplet($this->faker->name());
             $prof->setGrade("Ingenieur");

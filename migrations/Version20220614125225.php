@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220601145413 extends AbstractMigration
+final class Version20220614125225 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,16 +20,12 @@ final class Version20220601145413 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE module ADD rp_id INT NOT NULL');
-        $this->addSql('ALTER TABLE module ADD CONSTRAINT FK_C242628B70FF80C FOREIGN KEY (rp_id) REFERENCES rp (id)');
-        $this->addSql('CREATE INDEX IDX_C242628B70FF80C ON module (rp_id)');
+        $this->addSql('ALTER TABLE annee ADD is_etat TINYINT(1) NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE module DROP FOREIGN KEY FK_C242628B70FF80C');
-        $this->addSql('DROP INDEX IDX_C242628B70FF80C ON module');
-        $this->addSql('ALTER TABLE module DROP rp_id');
+        $this->addSql('ALTER TABLE annee DROP is_etat');
     }
 }

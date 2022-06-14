@@ -12,12 +12,13 @@
 <table class="container mt-5">
     <tr class="bg-info text-dark text-center">
         <th>N°</th>
-        <th>Libelle</th>
+        <th>Motif</th>
+        <th>Actions</th>
     </tr>
 {% for value in demandes %}
-    <tr class="text-center">
+    <tr class="text-center mt-3">
         <td>{% set i = i + 1 %} {{ i }}</td>
-        <td>{{value.libelle}}</td>
+        <td>{{value.motif}}</td>
         <td>
             <a class="btn btn-outline-warning" href="/module/{{ value.id }}/edit">Modifier</a>
             <button class="btn btn-outline-danger">Supprimer</button>
